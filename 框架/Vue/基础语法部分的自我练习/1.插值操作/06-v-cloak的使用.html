@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    /* 要实现v-cloak要用一个属性选择器选择所有的v-cloak元素在没有挂载vue时不显示*/
+    [v-cloak]{
+        display: none;
+    }
+</style>
+<body>
+    <script src="../js/vue.js"></script>
+    <div id='app' v-cloak>
+        <h2 v-cloak>{{message}}</h2>
+    </div>
+    <script>
+        // 在5秒后把这个挂在id为app的元素上并且让v-cloak属性消失
+        setTimeout(_ => {
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    message: '123',
+                }
+            })
+        }, 1000);
+    </script>
+</body>
+
+</html>

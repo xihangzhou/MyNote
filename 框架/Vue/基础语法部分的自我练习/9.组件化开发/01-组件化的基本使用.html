@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+    <div id='app'>
+        <my-cpnc></my-cpnc>
+        <div>
+            <br>
+            <my-cpnc></my-cpnc>
+        </div>
+    </div>
+    <br>
+    <!-- 组件要使用的话必须放在一个挂载了Vue实例的元素中，所以下面这个不会显示 -->
+    <my-cpnc></my-cpnc>
+
+<script src="../js/vue.js"></script>
+<script>
+    //1.创建组件对象构造器
+    const cpnC = Vue.extend({
+        template:`
+        <div>
+        <h2>你好</h2>
+        </div>
+        `
+    });
+    //2.注册组件对象构造器
+    Vue.component('my-cpnc',cpnC);
+
+    const app = new Vue({
+        el:'#app',
+    })
+</script>
+
+</body>
+</html>

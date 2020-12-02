@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<div id='app'>
+    <div>
+        <list :cplayers='players' @item-click='getId'></list>
+    </div>
+</div>
+
+<template id='list'>
+    <ul>
+        <li v-for='(player) in cplayers' @click='itemClick(id)'>{{player}}</li>
+    </ul>
+</template>
+
+<body>
+    <script src=' ../js/vue.js'>
+    </script>
+    <script>
+        const list = {
+            template: '#list',
+            props: {
+                cplayers: {
+                    type: Array,
+                    defaults() {
+                        return []
+                    },
+                }
+            },
+            data() {
+                return {
+                    id:123
+                }
+            },
+            methods:{
+                itemClick(id){
+                    this.$emit('item-click',id);
+                },
+            }
+        }
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                players: [1, 2, 3, 4, 5],
+            },
+            methods: {
+                getId(id){
+                    console.log(id);
+                }
+            },
+            components: {
+                list,
+            }
+        })
+    </script>
+</body>
+
+</html>

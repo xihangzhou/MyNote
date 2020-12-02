@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<div id='app'>
+    <cpn></cpn>
+    <!-- 设置插槽的值 -->
+    <cpn><button>123s</button></cpn>
+    <!-- 若有多个标签就要一起替换 -->
+    <cpn>
+        <h2>1</h2>
+        <h2>2</h2>
+        <h2>3</h2>
+    </cpn>
+
+</div>
+
+<template id=cpn>
+    <div>
+    <h2>下面是插槽</h2>
+    <!-- 这里为插槽添加默认值 -->
+    <slot>
+        <h2>我是插槽</h2>
+    </slot>
+    </div>
+</template>
+
+
+<body>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: {
+                    template: '#cpn'
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

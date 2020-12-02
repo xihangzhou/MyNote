@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id='app'>
+    <cmp ref='aaa'></cmp>
+    <button @click='onClick()'>button</button>
+</div>
+<template id='cmp'>
+    <div>
+        <h2>我是子组件</h2>
+    </div>
+</template>
+
+<body>
+    <script src='../js/vue.js'></script>
+    <script>
+
+        const cmp = {
+            template: '#cmp',
+            data() {
+                return {
+                    name: 123
+                }
+            },
+        }
+
+        const app = new Vue({
+            el: '#app',
+            components: {
+                cmp
+            },
+            methods: {
+                onClick() {
+                    // this.$children返回一个自组件的数组
+                    // 但是这种方法并不好，如果子组件位置发生修改代码就也要随之改动
+                    // console.log(this.$children[0].name);
+
+                    //还可以用ref来实现,注意要在子组件上添加对应的名字
+                    //注意是refs是复数
+                    console.log(this.$refs.aaa.name);
+                }
+
+            }
+        })
+
+
+
+    </script>
+</body>
+
+</html>

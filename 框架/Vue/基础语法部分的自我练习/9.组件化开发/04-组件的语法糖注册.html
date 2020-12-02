@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+
+    <body>
+
+        <div id="app">
+            <cpn1></cpn1>
+            <cpn2></cpn2>
+        </div>
+
+        <script src="../js/vue.js"></script>
+        <script>
+            // 1.全局组件注册的语法糖
+            // 1.创建组件构造器
+            // const cpn1 = Vue.extend()
+
+            // 2.注册组件(全局)
+            //注意：是component不是components
+            //cpn1是一个字符串
+            //后面相当于是定一个组件所以要用对象
+            Vue.component('cpn1', {
+                template: `
+                <div>
+                <h2>全局</h2>
+                </div>
+                `
+            })
+
+
+            // 3.注册局部组件的语法糖(局部)
+            const app = new Vue({
+                el: '#app',
+                //不止一个组件用对象
+                //一个多对象多个属性用对象
+                components: {
+                    //注意是字符串
+                    'cpn2': {
+                        template: `
+                        <div>
+                <h2>局部</h2>
+                </div>
+                        `
+                    }
+                }
+            })
+
+        </script>
+
+    </body>
+
+    </html>
+</body>
+
+</html>

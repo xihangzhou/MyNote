@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='app1'>
+        <cpn></cpn>
+    </div>
+    <div id='app2'>
+        <cpn></cpn>
+    </div>
+    <script src='../js/vue.js'></script>
+    <script>
+        const cpnt = Vue.extend({
+            template:  `
+            <div>
+            <h2> 123 </h2>
+            </div>
+            `
+        })
+        //全局组件
+        // Vue.component('cpn',cpnt)
+        //定义在app1中的局部组件
+        const app1 = new Vue({
+            el:'#app1',
+            //用components属性定义局部组件
+            components:{
+                //cpnt为使用时的签名
+                cpn:cpnt,
+            }
+        })
+
+        const app2 = new Vue({
+            el:'#app2',
+        })
+
+    </script>
+    
+</body>
+</html>

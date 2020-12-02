@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div id = 'app'>
+        <span v-if='isUser'>用户邮箱</span>
+        <span v-else>用户账号</span>
+        <input></input>
+        <button @click = 'onClick'>切换类型</button>
+    </div> -->
+    <div id='app'>
+        <span v-if='isUser'>
+            <!-- 添加label标签使用户点击标签也可以选中input -->
+            <label for='usermail'>用户邮箱</label>
+            <!--  placeholder属性是为了给一个默认初始值 -->
+            <input placeholder="用户邮箱" id='usermail' type='text' key='usermail'>
+        </span>
+        <span v-else>
+            <label for='username'>用户账号</label>
+            <!-- 添加一个唯一的key使得vue不仅仅是直接借用上面的那个input从而更新input中的内容 -->
+            <input placeholder="用户账号" id='username' type='text' key='username'>
+        </span>
+        <button @click = 'onClick'>切换类型</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                isUser: true
+            },
+            methods: {
+                onClick() {
+                    this.isUser = !this.isUser;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

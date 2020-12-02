@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<div id='app'>
+    
+    <cpn>
+        <!-- 注意指定slot是在要替换的地方指定 -->
+        <h2 slot='left'>left</h2>
+        <h2 slot='right'>right</h2>
+    </cpn>
+    <!-- 若有多个标签就要一起替换 -->
+
+</div>
+
+<template id=cpn>
+    <div>
+    <slot name='left'>
+        <h2>我是插槽left</h2>
+    </slot>
+    <slot name='center'>
+        <h2>我是插槽center</h2>
+    </slot>
+    <slot name='right'>
+        <h2>我是插槽right</h2>
+    </slot>
+    </div>
+</template>
+
+
+<body>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: {
+                    template: '#cpn'
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

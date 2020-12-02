@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<div id='app'>
+    <!-- 通过这种方式默认传入的参数就是子组件中的数据 -->
+    <!-- 这个地方的cmp组件实际上是在父级作用域中，所以获取到的数据都是app中的，要取得子组件的话要传递-->
+    <!-- 所以说父传子是通过属性的值的传递，而子传父是通过自定义事件 -->
+    <cmp @item-click='cpnClick'></cmp>
+</div>
+
+<template id='cmp'>
+    <!-- 注意模版要用div包起来 -->
+    <div>
+        <button v-for='item in categories' @click='itemClick(item)'>{{item.name}}</button>
+    </div>
+</template>
+
+<body>
+    <script src='../js/vue.js'></script>
+    <script>
+        const cmp = {
+            template: '#cmp',
+            data() {
+                return {
+                    categories: [
+                        { id: 'aaa', name: '热门推荐' },
+                        { id: 'bbb', name: '手机数码' },
+                        { id: 'ccc', name: '家用家电' },
+                        { id: 'ddd', name: '电脑办公' },
+                    ]
+                }
+            },
+            methods: {
+                itemClick(item) {
+                    //把这个数据发送给item-click的自定义事件
+                    this.$emit('item-click', item);
+                }
+            }
+        }
+
+        const app = new Vue({
+            el: '#app',
+            components: {
+                cmp
+            },
+            methods: {
+                cpnClick(item) {
+                    console.log('父组件', item);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

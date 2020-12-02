@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id='app'>
+        <!-- 1.只要值 -->
+        <ul>
+            <li v-for='item in info'>{{item}}</li>
+        </ul>
+        <!-- 2.值，键 -->
+        <ul>
+            <li v-for='(item,index) in info'>
+                {{index}},{{item}}
+            </li>
+        </ul>
+        <!-- 3.值，键，下标-->
+        <ul>
+            <li v-for='(item,key,index) in info'>
+                {{index+1}},{{key}},{{item}}
+            </li>
+        </ul>
+        <!-- 添加key属性 -->
+        <ul>
+            <li v-for='item in info' :key='item'>{{item}}
+            </li>
+        </ul>
+
+
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                info: {
+                    name: 'why',
+                    age: 18,
+                    height: 1.88
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

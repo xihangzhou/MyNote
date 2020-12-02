@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+        <!-- 同样要注意数组绑定的时候数组中的值是变量，对应的值应该才是style -->
+        <h2 :style="[fontSize,color]">123</h2>
+    </div>
+
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            fontSize: {fontSize:"100px"},
+            color: {color:'red'}
+        },
+        methods: {
+            getStyle() {
+                return { fontSize: this.size + 'px', color: this.color };
+            }
+        }
+    })
+</script>
+
+</html>

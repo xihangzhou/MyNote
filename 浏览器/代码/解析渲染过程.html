@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>js阻塞</title>
+</head>
+<body>
+	<div class="wrapper">
+		<script>alert("第一个inline js")</script>
+		<p>line1</p>
+		<script>alert("第二个inline js")</script>
+		<p>line2</p>
+		<script src="app1.js"></script>
+		<p>line3</p>
+		<script src="app2.js"></script>
+		<p>line4</p>
+		<script>alert("第三个inline js")</script>
+		<p>line5</p>
+	</div>
+</body>
+</html>

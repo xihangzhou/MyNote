@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id='app'>
+    <cpn1></cpn1>
+</div>
+<body>
+    <script src='../js/vue.js'></script>
+    <script>
+        Vue.component('cpn1',{
+            template:`
+            <div>
+            <h2>{{message}}</h2>
+            <h2>标示</h2>
+            </div>
+            `,
+            //注意组件中使用的数据访问不到vue实例中的，只能访问自己作用域的
+            //并且这个data是函数，返回的是一个数据对象
+            //之所以使用函数是为了让其在函数的上下文中生成一个新的对象并返回避免不同的组件实例对同一个数据对象进行操作
+            data(){
+                return {
+                    message:'你好'
+                }
+            }
+        })
+
+        const app = new Vue({
+            el:'#app',
+            data:{
+                message:'你好'
+            }
+        })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+    <div id="app">
+        <cpn></cpn>
+
+        <cpn>
+                    <!-- 在父元素中获取子元素的值 -->
+            <!-- 注意slot-scope是加在template上 -->
+            <!-- slot是一个对象 .data才是数据 -->
+            <template slot-scope='slot'>
+                <span>{{slot.data.join('*')}}</span>
+            </template>
+        </cpn>
+
+    </div>
+
+    <template id="cpn">
+        <div>
+            <!-- 传出pLanguages的值给data -->
+            <slot :data='pLanguages'>
+                <ul>
+                    <li v-for='item in pLanguages'>{{item}}</li>
+                </ul>
+            </slot>
+        </div>
+    </template>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好啊'
+            },
+            components: {
+                cpn: {
+                    template: '#cpn',
+                    data() {
+                        return {
+                            pLanguages: ['JavaScript', 'C++', 'Java', 'C#', 'Python', 'Go', 'Swift']
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+
+
+</body>
+
+</html>

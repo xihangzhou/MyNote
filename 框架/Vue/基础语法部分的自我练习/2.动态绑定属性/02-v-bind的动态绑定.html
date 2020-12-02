@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .active {
+        color: brown;
+    }
+</style>
+
+<body>
+    <div id='app'>
+        <!-- 用属性绑定的话直接写不行 -->
+        <!-- <h2 class='active'>123<h2> -->
+            <!-- 注意与[]方式绑定的区别，这里的键值是class名，值是一个真假值 -->
+        <h2 :class="{active: isActive}">123</h2>
+        <!-- 注意这里是要立即执行的函数所以一定要加（） -->
+        <h2 :class="getActive()">123</h2>
+        <!-- 这里不是立即执行所以可以不加() -->
+        <button v-on:click = "onClick">按钮</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+            },
+            methods: {
+                //这种写法要记住
+                onClick(){
+                    this.isActive = !this.isActive;
+                },
+                getActive(){
+                    //注意这里返回的是一个对象，这个isActive要用this
+                    return {active:this.isActive};
+
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

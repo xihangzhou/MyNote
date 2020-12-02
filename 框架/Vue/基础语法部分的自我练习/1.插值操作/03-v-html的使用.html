@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../js/vue.js"></script>
+    <div id = 'app'>
+        <h2>{{message}}</h2>
+        <h2 v-html = 'url'></h2>
+    </div>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '123',
+                url: "<a href = 'http://www.baidu.com'>百度</a>"//链接要加http协议否则会被认为是本地文件
+            }
+        })
+    </script>
+</body>
+
+</html>

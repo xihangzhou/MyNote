@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id='app'>
+    <cmp :number1='num1' 
+    :number2='num2' 
+    @get-dnum1='changeNum1'
+    @get-dnum2='changeNum2'
+    ></cmp>
+</div>
+<template id='cmp'>
+    <div>
+        <h2>Props:{{number1}}</h2>
+        <h2>Data:{{dnumber1}}</h2>
+        <!-- <input v-model = 'dnumber1' @input='inputValue1'> -->
+        <input :value='dnumber1' @input='inputValue1'>
+        <h2>Props:{{number2}}</h2>
+        <h2>Data:{{dnumber2}}</h2>
+        <input :value='dnumber2' @input='inputValue2'>
+    </div>
+</template>
+<body>
+    <script src='../js/vue.js'></script>
+    <script>
+        const cmp = {
+            template:'#cmp',
+            props:{
+                number1:{
+                    type:Number,
+                    default:0
+                },
+                number2:{
+                    type:Number,
+                    default:0
+                }
+            },
+            data(){
+                return {
+                    dnumber1:this.number1,
+                    dnumber2:this.number2
+                }
+            },
+            methods:{
+                inputValue1(){
+                    this.dnumber1 = event.target.value;
+                    this.$emit('get-dnum1',this.dnumber1);
+                    this.dnumber2 = this.dnumber1;
+                    this.$emit('get-dnum2',this.dnumber1);
+                },
+                inputValue2(){
+                    this.dnumber2 = event.target.value;
+                    this.$emit('get-dnum2',this.dnumber2);
+                }
+            }
+        }
+        const app = new Vue({
+            el:'#app',
+            data:{
+                num1:0,
+                num2:2
+            },
+            components:{
+                cmp
+            },
+            methods:{
+                changeNum1(dnumber1){
+                    this.num1 = parseInt(dnumber1);
+                },
+                changeNum2(dnumber2){
+                    this.num2 = parseInt(dnumber2);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

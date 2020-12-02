@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+    <!--注意这个地方要拿到数据的话要用属性绑定的方法-->
+<div id="app">
+    <cpm :cmovies='movies' :cmessage='message'></cmp>
+</div>
+
+<template id='cmp'>
+    <div>
+        <h2>{{cmessage}}</h2>
+        <ul>
+            <li v-for='movie in cmovies'>{{movie}}</li>
+        </ul>
+    </div>
+</template>
+
+
+
+
+<script src="../js/vue.js"></script>
+<script>
+
+   const cpm = {
+       template:"#cmp",
+       //注意props意为支撑，支柱，作为与父元素沟通的桥梁，并且会将父元素的值动态绑定到子元素上
+       props:{
+           //这里的数据是可以进行定义的
+           cmessage:{
+               type:String,
+               default:'123'
+           },
+           //如果是对象的话赋初值要用函数
+           cmovies:{
+               type:Array,
+               default(){
+                   return{}
+               }
+           }
+       },
+       data(){
+           return {};
+       }
+   }
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      movies: ['海王', '海贼王', '海尔兄弟']
+    },
+    components:{
+        cpm,
+    }
+  })
+
+</script>
+</body>
+</html>

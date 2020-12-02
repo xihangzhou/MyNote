@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>
+        <!-- 注意如果值是常数的话一定要用''不然会被解析为变量 -->
+        <!-- <h2 :style="{fontSize:'200px',color:'red'}">123</h2> -->
+        <!-- 也可以写成变量的形式,注意也要加'px' -->
+        <h2 :style="{fontSize:size + 'px',color:color}">123</h2>
+        <h2 :style="getStyle()">123</h2>
+    </div>
+
+</body>
+<script src="../js/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            size:100,
+            color:'red'
+        },
+        methods: {
+            getStyle(){
+                return {fontSize:this.size + 'px',color:this.color};
+            }
+        }
+    })
+</script>
+
+</html>

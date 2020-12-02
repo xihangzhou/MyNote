@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <script src="../js/vue.js"></script>
+        <div id='app'>
+            <h2>{{name}}</h2>
+            <h2 v-pre>{{name}}</h2>//跳过这个vue的编译，显示原本的内容
+        </div>
+        <script>
+            const app = new Vue({
+                el: '#app',
+                data: {
+                    message: '123',
+                    name:'zxh'
+                }
+            })
+        </script>
+    </body>
+
+    </html>
+</body>
+
+</html>

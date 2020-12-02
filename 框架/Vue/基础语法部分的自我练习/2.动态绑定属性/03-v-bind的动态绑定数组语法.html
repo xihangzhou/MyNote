@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .active{
+        color: brown;
+    }
+</style>
+<div id = 'app'>
+    <!-- 注意用数组绑定的时候是把变量放在数组中，class是对应的变量名 -->
+    <h2 :class = '[active]'>123</h2>
+    <h2 :class = 'getActive()'>123</h2>
+</div>
+
+<body>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                active:'active',
+            },
+            methods: {
+                getActive() {
+                    //要加this呀！
+                    return [this.active];
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

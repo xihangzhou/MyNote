@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<div id = 'app'>
+    <!-- 如果是计算属性不用立即执行 -->
+    <h2>{{Fullname}}</h2>
+    <!-- 用方法的话要立即执行 -->
+    <h2>{{getFullname()}}</h2>
+</div>
+
+<body>
+    <script src="../js/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                firstName: 'Lebron',
+                lastName: 'James'
+            },
+            // 计算属性有一个专门的属性
+            computed:{
+                Fullname(){
+                    return this.firstName + this.lastName;
+                }
+            },
+            methods:{
+                getFullname(){
+                    return this.firstName + this.lastName;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
