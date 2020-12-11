@@ -318,3 +318,278 @@ a 在 lat中出现的次数
 
 ![image-20201202162846991](The little schemer.assets/image-20201202162846991.png)
 
+## 6. Shadows
+
+1. Arithmetic expression
+
+atom或者是arithmetic运算符比如+ ✖️ ⬆️
+
+
+
+2. (quote a)
+
+Quote a 把a变成字符atom
+
+
+
+3. (numbered ? z)
+
+判断z这个arithmetic是否只包含除了+ ✖️ ⬆️的数字,即是否是一个能算出一个返回值的合法的表达式
+
+![image-20201204120051536](The little schemer.assets/image-20201204120051536.png)
+
+![image-20201204120133075](The little schemer.assets/image-20201204120133075.png)
+
+注意z是由一个list表示的
+
+比如 1 + （2 * 3） =》 [1,+,[2,*,3]]
+
+4. (Value nexp)
+
+计算nexp这个表达式的值
+
+![image-20201204141914398](The little schemer.assets/image-20201204141914398.png)
+
+如果运算符号在前的话：即 + 1 2 = 3
+
+![image-20201204143156196](The little schemer.assets/image-20201204143156196.png)
+
+![image-20201204143204670](The little schemer.assets/image-20201204143204670.png)
+
+![image-20201204143213492](The little schemer.assets/image-20201204143213492.png)
+
+![image-20201204143222915](The little schemer.assets/image-20201204143222915.png)
+
+注意这个地方的运算只是两个数的运算即  + 1 1 不会是 + 1 1 1
+
+通过抽取公共函数的方式可以使得我们的代码更加简洁。比如抽取operator或者1st-sub-exp
+
+ 
+
+5. 用()表示数字
+
+1 (())   2 (()())
+
+6. 检验0 aero?
+
+![image-20201204144003617](The little schemer.assets/image-20201204144003617.png)
+
+7. edd1 
+
+![image-20201204144039505](The little schemer.assets/image-20201204144039505.png)
+
+8. zub1
+
+![image-20201204144057437](The little schemer.assets/image-20201204144057437.png)
+
+9. 重新定义➕
+
+![image-20201204144243946](The little schemer.assets/image-20201204144243946.png)
+
+10. shadows
+
+把（1 2 3）用()表示可以表示为 ((())  (()()) (()()()))
+
+每一个list用() 每一个list中的每一项也用()以示区分 再用()的个数表示数字的大小
+
+这个时候用lat? 方法去判断 （1 2 3）的括号表现形式就会失效，这就是shadows
+
+![image-20201204144923782](The little schemer.assets/image-20201204144923782.png)
+
+## 7. Friends and Relations
+
+1. Set 
+
+没有重复值的list
+
+2. set?
+
+![image-20201207100735355](The little schemer.assets/image-20201207100735355.png)
+
+3. makeset l
+
+把l去重
+
+![image-20201207101344507](The little schemer.assets/image-20201207101344507.png)
+
+![image-20201207101601267](The little schemer.assets/image-20201207101601267.png)
+
+4. Subset set1 set2
+
+Set1 是否是 set2 的子集
+
+![image-20201207102221567](The little schemer.assets/image-20201207102221567.png)
+
+5. eqset?
+
+两个set是否相等
+
+![image-20201207102323969](The little schemer.assets/image-20201207102323969.png)
+
+6. intersect? set1 set2
+
+两个set是否有交集
+
+![image-20201207102531776](The little schemer.assets/image-20201207102531776.png)
+
+7. intersect set1 set2
+
+取两个set的交集
+
+![image-20201207102844242](The little schemer.assets/image-20201207102844242.png)
+
+8. Union set1 set2
+
+取set1 和 set2的并集
+
+![image-20201207103805757](The little schemer.assets/image-20201207103805757.png)
+
+9. intersectall l-set ！！
+
+l中的每一个item都是set,返回每一个item中都有的item
+
+![image-20201207104754323](The little schemer.assets/image-20201207104754323.png)
+
+10. a-pair?
+
+判断一个list是否只由两个S-sepressions组成
+
+
+
+11. first second third build函数
+
+用于简化其他函数
+
+![image-20201207142019511](The little schemer.assets/image-20201207142019511.png)![image-20201207142154866](The little schemer.assets/image-20201207142154866.png)
+
+12. rel
+
+a set of pairs, 即不重复的pairs构成的list
+
+13. fun? rel
+
+注意firsts的定义
+
+![image-20201207143152077](The little schemer.assets/image-20201207143152077.png)
+
+14. revrel
+
+颠倒rel中每一个pair的顺序
+
+![image-20201207143641004](The little schemer.assets/image-20201207143641004.png)
+
+如果有一个revpair函数![image-20201207145031246](The little schemer.assets/image-20201207145031246.png)
+
+可以改写revrel为
+
+![image-20201207145053856](The little schemer.assets/image-20201207145053856.png)
+
+15. fullfun? fun
+
+seconds为获取fun中每一个item的第二个值
+
+![image-20201207145355982](The little schemer.assets/image-20201207145355982.png)
+
+16. One-to-one
+
+![image-20201207145607943](The little schemer.assets/image-20201207145607943.png)
+
+## 8. lambda the ultimate
+
+1. rember-f（test? a l）
+
+test为判断相等的函数，a为一个atom，l是一个list,删掉l中的第一个a
+
+把function作为参数传入
+
+![image-20201210172642130](The little schemer.assets/image-20201210172642130.png)
+
+2. 一个函数返回另外一个函数（柯里化）
+
+![image-20201210180417642](The little schemer.assets/image-20201210180417642.png)
+
+3. 用柯里化去处理rember-f并命名为remember-eq?
+
+![image-20201210182214018](The little schemer.assets/image-20201210182214018.png)
+
+![image-20201210181444356](The little schemer.assets/image-20201210181444356.png)
+
+4. insertL-f和insertR-f
+
+![image-20201210183021157](The little schemer.assets/image-20201210183021157.png)
+
+![image-20201210183030977](The little schemer.assets/image-20201210183030977.png)
+
+5. seqL 和 seqR 和seqS 和 seqS
+
+   seqL返回插入左边的函数，seqR返回插入右边的函数
+
+   ![image-20201210183644613](The little schemer.assets/image-20201210183644613.png)
+
+![image-20201210183652564](The little schemer.assets/image-20201210183652564.png)
+
+![image-20201210185032038](The little schemer.assets/image-20201210185032038.png)
+
+6. 写一个insert-g()函数以seqL或者是seqR为参数决定插入的位置
+
+![image-20201210183907464](The little schemer.assets/image-20201210183907464.png)
+
+7. 用insert-g重新定义insertL
+
+![image-20201210183946811](The little schemer.assets/image-20201210183946811.png)
+
+8. 用insert-g重新定义insertR
+
+![image-20201210184010168](The little schemer.assets/image-20201210184010168.png)
+
+9. 用insert-g重新定义sebst
+
+![image-20201210185227247](The little schemer.assets/image-20201210185227247.png)
+
+10. 用seqrem和insert-g定义rember
+
+![image-20201210185721951](The little schemer.assets/image-20201210185721951.png)
+
+yyy即是rember, 参数 #f只是为了占位
+
+
+
+11. 改写计算一个表达式的值的value函数
+
+![image-20201211100925276](The little schemer.assets/image-20201211100925276.png)
+
+![image-20201211100935746](The little schemer.assets/image-20201211100935746.png)
+
+抽象出atom-to-function对于符号的判断功能
+
+12. Multirember-f
+
+![image-20201211104136612](The little schemer.assets/image-20201211104136612.png)
+
+13. multiremberT
+
+![image-20201211104303115](The little schemer.assets/image-20201211104303115.png)
+
+这个方法中的test?是像以下的比较函数中的一样进行的与一个值的比较
+
+![image-20201211104833830](The little schemer.assets/image-20201211104833830.png)
+
+14. ！！！ multirember&co ！！！
+
+![image-20201211105124616](The little schemer.assets/image-20201211105124616.png)
+
+这个函数有些复杂，每一次运行都会传出当前域的值形成闭包进行递归，并且每一次递归都会传传一个函数参数。
+
+这个函数的作用是，遍历lat这个数组，与a相等的值放在参数seen中，与b相等的值放在参数newlat中，最后返回以seen和newlat为参数的col函数的值
+
+
+
+15. multiinsertLR
+
+![image-20201211145820214](The little schemer.assets/image-20201211145820214.png)
+
+等于oldL插在左边，等于oldR插在右边
+
+
+
+16. 
