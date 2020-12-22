@@ -588,8 +588,258 @@ yyy即是rember, 参数 #f只是为了占位
 
 ![image-20201211145820214](The little schemer.assets/image-20201211145820214.png)
 
-等于oldL插在左边，等于oldR插在右边
+等于oldL插在左边，等于oldR插在右边，相当于把multiinsertL和multiinsertR合并在了一起
 
 
 
-16. 
+16. multiinsertLR&co
+
+![image-20201214170935247](The little schemer.assets/image-20201214170935247.png)
+
+![image-20201214170943201](The little schemer.assets/image-20201214170943201.png)
+
+函数目的： 执行一个col函数，这个函数的第一个参数是执行了multiinsertLR函数的返回值，第二个参数是和oldL相等的lat项的个数，第三个参数是和oldR相等的lat项的个数
+
+注意点：
+
+​			1: lat作为参数传入multiinsertLR函数中
+
+​			2: 最后的递归边界是执行这个函数
+
+​			3: 每一次新传入的col都只简单的执行了col，递归的关系体现在了传参中
+
+​			4: newlat相当于这一步之后生成的结果，就相当于在multiinsertLR函数在每一次递归中的返回值
+
+​			5: 这个col参与了整个multiinsertLR函数的递归过程，并且在参数的传递中实现了递归过程，就像是collector一样一直在收集multiinsertLR函数的结果，等multiinsertLR函数执行完了，collector也收集完了，就可以以收集结果为参数执行自己的方法
+
+17. evens-only*
+
+![image-20201214175332131](The little schemer.assets/image-20201214175332131.png)
+
+18. evens-only* l
+
+![image-20201214174816207](The little schemer.assets/image-20201214174816207.png)
+
+收集器col中有三个参数，第一个是newl,是even-only的返回值，返回的是l中的所有偶数，p是所有偶数的乘积，s是所有偶数的和
+
+所以其实收集器就是把函数的递归关系写在了参数中，参数有几个就可以有几个递归关系，即几个递归的结果
+
+## 9. again and again
+
+1. looking a lat
+
+![image-20201216184727098](The little schemer.assets/image-20201216184727098.png)
+
+从lat的第一位开始找a这个atom
+
+
+
+2. pick num lat
+
+从lat中取出下标为num的atom
+
+
+
+3. Keep-looking
+
+![image-20201216185141749](The little schemer.assets/image-20201216185141749.png)
+
+4. Partial/total functin
+
+partial function是有可能无限循环没有终点的函数，total是一定有输出值的函数
+
+
+
+5. eternity
+
+![image-20201216185408299](The little schemer.assets/image-20201216185408299.png)
+
+这是一个可能是最简单的无限循环的函数，是一个partial的函数
+
+
+
+6. Shift x
+
+![image-20201216185859068](The little schemer.assets/image-20201216185859068.png)
+
+shift ( (1,2) ,(3,4) ) =>   (1,( 2,(3,4)) )
+
+7. Align 
+
+![image-20201216190356086](The little schemer.assets/image-20201216190356086.png)
+
+是total的函数，一个参数一定有一个返回值
+
+8. Length* 
+
+![image-20201216201448477](The little schemer.assets/image-20201216201448477.png)
+
+返回一个pora,即pair的长度
+
+
+
+9. Weight* pair
+
+![image-20201217095749955](The little schemer.assets/image-20201217095749955.png)
+
+对于align来说，length* 去衡量一个pair的长度不太好。因为决定align是否能终止循环递归的是pair的第一个元素，所以第一个元素更重要。解决方法就是使用weight，给第一个元素的长度一个更大的权重。
+
+
+
+10. shuffle
+
+![image-20201217100509288](The little schemer.assets/image-20201217100509288.png)
+
+shuffle就是partial的，因为revpair只是交换pair两个元素的位置，如果一个pair的两个与安素都是不是atom，那么这个函数就没有返回值
+
+
+
+11. 探究有没有一个函数可以判断所有的函数是不是total的
+
+will-stop
+
+![image-20201217102158956](The little schemer.assets/image-20201217102158956.png)
+
+
+
+Last-try
+
+![image-20201217102220311](The little schemer.assets/image-20201217102220311.png)
+
+如果will-stop? Last-try的值为false,则意味假设last-try是不会停下来的，而and (will-stop? Last-try) (eternity x)
+
+表达式如果will-stop? Last-try为假就不会去执行eternity x, 函数就会停下来，推导出矛盾
+
+
+
+if will-stop? Last-try === true => last-try会停下来 => 执行eternity x =>  last-try停不下来 => 推导出矛盾
+
+所以will-stop是一个不存在的函数，或者说这是一个不能被定义的函数
+
+
+
+12. 探究如何用匿名函数实现递归
+
+用length函数举例：
+
+![image-20201217104330692](The little schemer.assets/image-20201217104330692.png)
+
+length就是一个用递归实现的函数，但是如果不能不能给这个函数length的名字了，那它怎么在定义函数的时候调用自己呢？
+
+* 初步思想：每递归一层就把函数抄一遍
+
+  * 对空数组
+
+  ![image-20201217104648557](The little schemer.assets/image-20201217104648557.png)
+
+  ​		在这种情况下我们只能判断空数组的长度为0
+
+  * 对长度为1的数组
+
+  ![image-20201217104754166](The little schemer.assets/image-20201217104754166.png)
+
+  ​		相当于在本来递归的那里再重新抄了一次代码
+
+  * 对长度为2或以下的数组
+
+  ![image-20201217105214458](The little schemer.assets/image-20201217105214458.png)
+
+  ​			再抄了一次代码
+
+* 进阶1: 这样写太繁琐了，我们可以提取函数的公共部分
+
+  * 对于长度为0的数组
+
+  ![image-20201217105943713](The little schemer.assets/image-20201217105943713.png)
+
+  * 对于长度为1的数组
+
+  ![image-20201217110009565](The little schemer.assets/image-20201217110009565.png)
+  * 对于长度为2的数组
+
+  ![image-20201217110049053](The little schemer.assets/image-20201217110049053.png)
+
+  
+
+  这一层相当于是把每一层的递归嵌套解放了出来，代码长度是差不多的但是逻辑划分更清晰
+
+* 进阶2: 再抽象一层
+
+  * 对于长度为0的数组
+
+  ![image-20201217110534129](The little schemer.assets/image-20201217110534129.png)
+  * 对于长度为1的数组
+
+  ![image-20201217110730212](The little schemer.assets/image-20201217110730212.png)
+
+  * 对于长度为2的数组
+
+  ![image-20201217110801734](The little schemer.assets/image-20201217110801734.png)
+
+* 进阶3: 由于eternity这个函数是什么并不重要，所以我们甚至可以传mk-lengh进去
+
+![image-20201217152007883](The little schemer.assets/image-20201217152007883.png)
+
+甚至length也可以被mk-length所替换，这样可以更好的提醒我们一切都是mk-length
+
+![image-20201217152107570](The little schemer.assets/image-20201217152107570.png)
+
+如果我们只运行一次mk-length,我们可以得到长度小于等于1的
+
+![image-20201217155045391](The little schemer.assets/image-20201217155045391.png)
+
+如果我们迭代运行mk-length,可以无限递归得本来的length函数
+
+![image-20201217155303585](The little schemer.assets/image-20201217155303585.png)
+
+* 进阶4: 但是这个样子不像length的样子，可以先把mk-length mk-length做如下的变换，及用一个函数包起来
+
+![image-20201218165758110](The little schemer.assets/image-20201218165758110.png)
+
+再把外面这个函数用一个lambda(length)包起来
+
+![image-20201217161849135](The little schemer.assets/image-20201217161849135.png)
+
+再把框中的部分提取出来，再包一个函数在外面，提出length
+
+![image-20201217162042071](The little schemer.assets/image-20201217162042071.png)
+
+外面这一层就是applicative-order Y combinator（Y算子）
+
+![image-20201217171856131](The little schemer.assets/image-20201217171856131.png)
+
+## 10.What is the Value of All of this
+
+1. entry的定义
+
+一个pair,一个元素是set,第二个元素是一个list,并且两个元素的长度相等
+
+2. Lookup-in-enty name entry
+
+![image-20201220163911520](The little schemer.assets/image-20201220163911520.png)
+
+#### ![image-20201220163833017](The little schemer.assets/image-20201220163833017.png)
+
+这个函数用一个lookup-in-entry-help来实现了它的helper函数。
+
+这个函数的本来目的是返回entry的第二个元素中的一个元素，这个元素的位置是name在第一个元素中出现的位置。
+
+如果name没有出现过则用entry-f执行name
+
+例子：
+
+![image-20201220164207941](The little schemer.assets/image-20201220164207941.png)
+
+2. table
+
+a list of entries
+
+3. Lookup-in-table (name table table-f)
+
+![image-20201220165604835](The little schemer.assets/image-20201220165604835.png)
+
+在一个table中找到第一个能用上lookup-in-entry的entry
+
+
+
+4. 

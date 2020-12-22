@@ -10,7 +10,6 @@
 <div id="app">
     <cpm :cmovies='movies' :cmessage='message'></cmp>
 </div>
-
 <template id='cmp'>
     <div>
         <h2>{{cmessage}}</h2>
@@ -19,13 +18,8 @@
         </ul>
     </div>
 </template>
-
-
-
-
 <script src="../js/vue.js"></script>
 <script>
-
    const cpm = {
        template:"#cmp",
        //注意props意为支撑，支柱，作为与父元素沟通的桥梁，并且会将父元素的值动态绑定到子元素上
